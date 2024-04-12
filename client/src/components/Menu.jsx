@@ -6,12 +6,7 @@ import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
 import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
-import LibraryMusicOutlinedIcon from "@mui/icons-material/LibraryMusicOutlined";
-import SportsEsportsOutlinedIcon from "@mui/icons-material/SportsEsportsOutlined";
-import SportsBasketballOutlinedIcon from "@mui/icons-material/SportsBasketballOutlined";
-import MovieOutlinedIcon from "@mui/icons-material/MovieOutlined";
-import ArticleOutlinedIcon from "@mui/icons-material/ArticleOutlined";
-import LiveTvOutlinedIcon from "@mui/icons-material/LiveTvOutlined";
+import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
@@ -19,6 +14,10 @@ import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { logout } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
+
+
 const Container = styled.div`
   flex: 1;
   background-color: ${({ theme }) => theme.bgLighter};
@@ -75,15 +74,19 @@ const Button = styled.button`
   gap: 5px;
 `;
 
-const Title = styled.h2`
-  font-size: 14px;
-  font-weight: 500;
-  color: #aaaaaa;
-  margin-bottom: 20px;
-`;
+// const Title = styled.h2`
+//   font-size: 14px;
+//   font-weight: 500;
+//   color: #aaaaaa;
+//   margin-bottom: 20px;
+// `;
 
 const Menu = ({ darkMode, setDarkMode }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch logout action
+  };
 
   return (
     <Container>
@@ -94,10 +97,12 @@ const Menu = ({ darkMode, setDarkMode }) => {
             Flixify
           </Logo>
         </Link>
-        <Item>
-          <HomeIcon />
-          Home
-        </Item>
+        <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+          <Item>
+            <HomeIcon />
+            Home
+          </Item>
+        </Link>
         <Link to="trends" style={{ textDecoration: "none", color: "inherit" }}>
           <Item>
             <ExploreOutlinedIcon />
@@ -139,9 +144,9 @@ const Menu = ({ darkMode, setDarkMode }) => {
         }
 
 
-        <Item>
-          <SettingsOutlinedIcon />
-          Settings
+        <Item onClick={handleLogout}>
+          <LogoutIcon />
+          Logout
         </Item>
         <Item>
           <FlagOutlinedIcon />
@@ -150,13 +155,13 @@ const Menu = ({ darkMode, setDarkMode }) => {
         <Item>
           <HelpOutlineOutlinedIcon />
           Help
-        </Item>
+        </Item> 
         <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
           {darkMode ? "Light" : "Dark"} Mode
         </Item>
       </Wrapper>
-    </Container>
+    </Container >
   );
 };
 

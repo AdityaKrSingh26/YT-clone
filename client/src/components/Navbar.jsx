@@ -88,7 +88,7 @@ const Navbar = () => {
               placeholder="Search"
               onChange={(e) => setQ(e.target.value)}
             />
-            <SearchOutlinedIcon onClick={()=>navigate(`/search?q=${q}`)}/>
+            <SearchOutlinedIcon onClick={() => navigate(`/search?q=${q}`)} />
           </Search>
           {currentUser ? (
             <User>
