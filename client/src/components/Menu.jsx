@@ -8,6 +8,7 @@ import VideoLibraryOutlinedIcon from "@mui/icons-material/VideoLibraryOutlined";
 import HistoryOutlinedIcon from "@mui/icons-material/HistoryOutlined";
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import ForumIcon from '@mui/icons-material/Forum';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import FlagOutlinedIcon from "@mui/icons-material/FlagOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
@@ -118,6 +119,15 @@ const Menu = ({ darkMode, setDarkMode }) => {
             Subscriptions
           </Item>
         </Link>
+        <Link
+          to="community"
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <Item>
+            <ForumIcon />
+            Community
+          </Item>
+        </Link>
         <Hr />
         <Item>
           <VideoLibraryOutlinedIcon />
@@ -143,11 +153,12 @@ const Menu = ({ darkMode, setDarkMode }) => {
           </>
         }
 
-
-        <Item onClick={handleLogout}>
-          <LogoutIcon />
-          Logout
-        </Item>
+        {currentUser &&
+          <Item onClick={handleLogout}>
+            <LogoutIcon />
+            Logout
+          </Item>
+        }
         <Item>
           <FlagOutlinedIcon />
           Report
@@ -155,7 +166,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
         <Item>
           <HelpOutlineOutlinedIcon />
           Help
-        </Item> 
+        </Item>
         <Item onClick={() => setDarkMode(!darkMode)}>
           <SettingsBrightnessOutlinedIcon />
           {darkMode ? "Light" : "Dark"} Mode

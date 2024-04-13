@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import AddCommentIcon from '@mui/icons-material/AddComment';
+import VideoCallIcon from '@mui/icons-material/VideoCall';
 import VideoCallOutlinedIcon from "@mui/icons-material/VideoCallOutlined";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -92,7 +94,8 @@ const Navbar = () => {
           </Search>
           {currentUser ? (
             <User>
-              <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
+              <AddCommentIcon fontSize="small" />
+              <VideoCallIcon fontSize="medium" onClick={() => setOpen(true)} />
               <Avatar src={currentUser.img} />
               {currentUser.name}
             </User>
