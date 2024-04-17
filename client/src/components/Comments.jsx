@@ -28,32 +28,54 @@ const Input = styled.input`
   width: 100%;
 `;
 
-const Comments = ({videoId}) => {
-
+const Comments = ({ videoId }) => {
   const { currentUser } = useSelector((state) => state.user);
-
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const res = await axios.get(`/comments/${videoId}`);
         setComments(res.data);
-      } catch (err) {}
+      } catch (err) {
+        // Handle error
+      }
     };
     fetchComments();
   }, [videoId]);
 
-  //TODO: ADD NEW COMMENT FUNCTIONALITY
+  const addComment = async () => {
+    try {
+      const res = await axios.post("/comments", {
+        videoId: videoId,
+        userId: currentUser.id,
+        desc: newComment,
+      });
+      setComments([...comments, res.data]);
+      setNewComment("");
+    } catch (err) {
+      // Handle error
+    }
+  };
 
   return (
     <Container>
       <NewComment>
         <Avatar src={currentUser.img} />
-        <Input placeholder="Add a comment..." />
+        <Input
+          placeholder="Add a comment..."
+          value={newComment}
+          onChange={(e) => setNewComment(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              addComment();
+            }
+          }}
+        />
       </NewComment>
-      {comments.map(comment=>(
-        <Comment key={comment._id} comment={comment}/>
+      {comments.map((comment) => (
+        <Comment key={comment._id} comment={comment} />
       ))}
     </Container>
   );

@@ -6,7 +6,7 @@ import { createError } from "../error.js";
 export const addVideo = async (req, res, next) => {
   const newVideo = new Video({ userId: req.user.id, ...req.body });
   try {
-    
+
     const savedVideo = await newVideo.save();
     res.status(200).json(savedVideo);
 
@@ -47,7 +47,7 @@ export const deleteVideo = async (req, res, next) => {
 
     const video = await Video.findById(req.params.id);
     if (!video) return next(createError(404, "Video not found!"));
-    
+
     if (req.user.id === video.userId) {
       await Video.findByIdAndDelete(req.params.id);
       res.status(200).json("The video has been deleted.");
@@ -65,9 +65,12 @@ export const deleteVideo = async (req, res, next) => {
 export const getVideo = async (req, res, next) => {
   try {
 
-    console.log("req.params.id" + req.params.id);
+    // console.log("req.params.id" + req.params.id);
     const video = await Video.findById(req.params.id);
-    console.log("video" + video);
+    await Video.findByIdAndUpdate(req.params.id, {
+      $inc: { views: 1 },
+    });
+    // console.log("video" + video);
     res.status(200).json(video);
 
   } catch (err) {
@@ -78,7 +81,6 @@ export const getVideo = async (req, res, next) => {
 
 export const addView = async (req, res, next) => {
   try {
-
     await Video.findByIdAndUpdate(req.params.id, {
       $inc: { views: 1 },
     });
@@ -157,7 +159,7 @@ export const search = async (req, res, next) => {
     }).limit(40);
     res.status(200).json(videos);
 
-  }catch (err) {
+  } catch (err) {
     console.log("Error in search \n" + err);
     next(err);
   }
