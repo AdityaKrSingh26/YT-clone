@@ -119,7 +119,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
             Subscriptions
           </Item>
         </Link>
-        <Link
+        {/* <Link
           to="community"
           style={{ textDecoration: "none", color: "inherit" }}
         >
@@ -127,7 +127,7 @@ const Menu = ({ darkMode, setDarkMode }) => {
             <ForumIcon />
             Community
           </Item>
-        </Link>
+        </Link> */}
         <Hr />
         <Item>
           <VideoLibraryOutlinedIcon />

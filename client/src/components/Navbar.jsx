@@ -94,7 +94,7 @@ const Navbar = () => {
           </Search>
           {currentUser ? (
             <User>
-              <AddCommentIcon fontSize="small" />
+              {/* <AddCommentIcon fontSize="small" /> */}
               <VideoCallIcon fontSize="medium" onClick={() => setOpen(true)} />
               <Avatar src={currentUser.img} />
               {currentUser.name}

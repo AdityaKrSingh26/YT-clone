@@ -61,8 +61,14 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/auth/signin", { name, password });
-      dispatch(loginSuccess(res.data));
+      if (isSignInForm) {
+        const res = await axios.post("/auth/signin", { name, password });
+        dispatch(loginSuccess(res.data));
+      } else {
+        const res = await axios.post("/auth/signup", { name, email, password });
+
+        dispatch(loginSuccess(res.data));
+      }
       navigate("/");
     } catch (err) {
       dispatch(loginFailure());
@@ -130,7 +136,7 @@ const SignIn = () => {
             placeholder="password"
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button>Sign up</Button>
+          <Button onClick={handleLogin}>Sign up</Button>
           <Title>or</Title>
           <Button onClick={signInWithGoogle}>Signup with Google</Button>
           <p>
